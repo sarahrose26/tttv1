@@ -124,7 +124,7 @@ if mode=="2"
 				end
 			end
 			if win==true
-				puts "The computer wins."
+				puts "You win."
 				board.display_board
 			elsif move_number==9
 				puts "It's a draw folks!"
@@ -163,9 +163,64 @@ else
 end
 
 if mode == "3"
-#this conditional allows the computer to play .self, but I think computer.rb needs to be refactored with a class method that teaches game play without being reliant on another player :/
-	
-	
+	#this conditional allows the computer to play .self, but I think computer.rb needs to be refactored with a class method that teaches game play without being reliant on another player :/
+	p1=Player.new("Computer", "X", [])
+	p2=Player.new("Computer", "0", [])
+	board=Board.new
+	move_number=1
+	win=false
+	while win==false
+		if move_number%2==1
+			current_player=p1
+			if move_number==1
+				board.display_board
+			end
+			# You should add some more randomization to the first move to give different outcomes
+			# Maybe don't use optimal if move_number==1, pick random(0,8)
+			location=Computer.optimal(p1.history,p2.history)
+			current_player.history << location
+			board.modify_board(current_player, location)
+			win_array.each do |element|
+				if (current_player.history&element).sort==element
+					win=true
+				end
+			end
+			if win==true
+				puts "Player 1 wins"
+				board.display_board
+			elsif move_number==9
+				puts "It's a draw folks!"
+				win=true
+				board.display_board
+			else
+				move_number+=1
+				puts "Computer's move:"
+				board.display_board
+			end
+		else
+			current_player=p2
+			location=Computer.optimal(p1.history,p2.history)
+			current_player.history << location
+			board.modify_board(current_player, location)
+			win_array.each do |element|
+				if (current_player.history&element).sort==element
+					win=true
+				end
+			end
+			if win==true
+				puts "Player 2 wins"
+				board.display_board
+			elsif move_number==9
+				puts "It's a draw folks!"
+				win=true
+				board.display_board
+			else
+				move_number+=1
+				puts "Computer's move:"
+				board.display_board
+			end
+		end
+	end
 	
 	
 	
