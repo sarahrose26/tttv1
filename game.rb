@@ -163,7 +163,7 @@ else
 end
 
 if mode == "3"
-	#this conditional allows the computer to play .self, but I think computer.rb needs to be refactored with a class method that teaches game play without being reliant on another player :/
+	#this conditional allows the computer to play .self, but I think computer.rb needs to be refactored with a class method that teaches game play without being reliant on another player
 	p1=Player.new("Computer", "X", [])
 	p2=Player.new("Computer", "0", [])
 	board=Board.new
@@ -175,8 +175,7 @@ if mode == "3"
 			if move_number==1
 				board.display_board
 			end
-			# You should add some more randomization to the first move to give different outcomes
-			# Maybe don't use optimal if move_number==1, pick random(0,8)
+			
 			location=Computer.optimal(p1.history,p2.history)
 			current_player.history << location
 			board.modify_board(current_player, location)
